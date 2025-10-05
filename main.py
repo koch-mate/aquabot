@@ -25,7 +25,7 @@ try:
         GPIO.output(pins.LER, GPIO.input(pins.SWTCCW))
 
 except KeyboardInterrupt:
-    print("Exiting...")
+    print("Cleaning up GPIO...")
 
 finally:
     GPIO.cleanup()
