@@ -12,5 +12,5 @@ device = ssd1306(serial, height=32, rotate=2)
 with canvas(device) as draw:
     # draw.rectangle(device.bounding_box, outline="white", fill="black")
     font = ImageFont.truetype("tiny.ttf", 6)
-    draw.text((2, 2), "Hello World", fill="white", font=font)
-sleep(10)
+    draw.text((2, 2), "World domination in 3 .. 2 ..", fill="white", font=font)
+sleep(100)
