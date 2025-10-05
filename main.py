@@ -18,11 +18,17 @@ for l in pins.LEDS:
     GPIO.setup(l, GPIO.OUT)
     GPIO.output(l, GPIO.LOW)
 
+try:
+    while True:
+        time.sleep(0.02)
+        GPIO.output(pins.LEF, GPIO.input(pins.SWB))
+        GPIO.output(pins.LER, GPIO.input(pins.SWTCCW))
 
-while True:
-    time.sleep(0.02)
-    GPIO.output(pins.LEF, GPIO.input(pins.SWB))
-    GPIO.output(pins.LER, GPIO.input(pins.SWTCCW))
+except KeyboardInterrupt:
+    print("Exiting...")
+
+finally:
+    GPIO.cleanup()
 
 
 class Robot:
