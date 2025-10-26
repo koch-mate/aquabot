@@ -1,6 +1,8 @@
 import RPi.GPIO as GPIO
 import time
 
+from gpiozero import LED
+
 from conf import pins
 from lib import common
 
@@ -14,15 +16,17 @@ GPIO.setmode(GPIO.BCM)
 for s in pins.SWITCHES:
     GPIO.setup(s, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-for l in pins.LEDS:
-    GPIO.setup(l, GPIO.OUT)
-    GPIO.output(l, GPIO.LOW)
+LEDS = {}
+for l in pins.LEDS.keys():
+    LEDS[l] = LED(pins.LEDS[l])
 
 try:
     while True:
-        time.sleep(0.02)
-        GPIO.output(pins.LEF, GPIO.input(pins.SWB))
-        GPIO.output(pins.LER, GPIO.input(pins.SWTCCW))
+        time.sleep(0.2)
+        for k, v in LEDS.items():
+            LEDS[v].on()
+            time.sleep(0.3)
+
 
 except KeyboardInterrupt:
     print("Cleaning up GPIO...")

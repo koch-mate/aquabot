@@ -1,7 +1,4 @@
-LEF = 23
-LER = 24
-
-LEDS = [LEF, LER]
+LEDS = {"LEF": 23, "LER": 24}
 
 SWB = 4
 SWTCW = 17
