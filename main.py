@@ -1,3 +1,5 @@
+import logging
+
 import RPi.GPIO as GPIO
 import time
 
@@ -8,16 +10,25 @@ from lib import common
 
 from transitions import Machine
 
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    datefmt="%H:%M:%S",
+)
+
 GPIO.setmode(GPIO.BCM)
 
+logging.info("Setting up switches... ")
 for s in pins.SWITCHES:
     GPIO.setup(s, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
+logging.info("Setting up switches - READY")
+
+logging.info("Setting up LEDs... ")
 LEDS = {}
 for l in pins.LEDS.keys():
     LEDS[l] = LED(pins.LEDS[l])
-
-print("LEDs configured")
+logging.info("Setting up LEDs - READY")
 
 try:
     while True:
@@ -29,10 +40,11 @@ try:
 
 
 except KeyboardInterrupt:
-    print("Cleaning up GPIO...")
+    logging.info("GPIO cleanup...")
 
 finally:
     GPIO.cleanup()
+    logging.info("Shutting down")
 
 
 class Robot:
