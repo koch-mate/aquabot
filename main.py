@@ -16,15 +16,16 @@ for s in pins.SWITCHES:
 LEDS = {}
 for l in pins.LEDS.keys():
     LEDS[l] = LED(pins.LEDS[l])
-print(LEDS)
+
+print("LEDs configured")
 
 try:
     while True:
         time.sleep(0.2)
-        for k, v in LEDS.items():
-            LEDS[v].on()
+        for _, L in LEDS.items():
+            L.on()
             time.sleep(0.3)
-            LEDS[v].off()
+            L.off()
 
 
 except KeyboardInterrupt:
