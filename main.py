@@ -21,8 +21,17 @@ logging.info("Aquabot booting")
 GPIO.setmode(GPIO.BCM)
 
 logging.info("Setting up switches... ")
+invSwitches = {v: k for k, v in pins.SWITCHES.items()}
+
+
+def on_press(channel):
+    logging.info("Switch '" + invSwitches[channel] + "' pressed!")
+
+
 for k, v in pins.SWITCHES.items():
     GPIO.setup(v, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.add_event_detect(v, GPIO.FALLING, callback=on_press, bouncetime=300)
+
 
 logging.info("Setting up switches - READY")
 
@@ -42,6 +51,7 @@ try:
 
 
 except KeyboardInterrupt:
+    logging.warning("Keyboard interrupt")
     logging.info("GPIO cleanup...")
 
 finally:
