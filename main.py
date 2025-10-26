@@ -8,9 +8,6 @@ from lib import common
 
 from transitions import Machine
 
-# setup GPIO
-#
-
 GPIO.setmode(GPIO.BCM)
 
 for s in pins.SWITCHES:
@@ -19,6 +16,7 @@ for s in pins.SWITCHES:
 LEDS = {}
 for l in pins.LEDS.keys():
     LEDS[l] = LED(pins.LEDS[l])
+print(LEDS)
 
 try:
     while True:
@@ -26,6 +24,7 @@ try:
         for k, v in LEDS.items():
             LEDS[v].on()
             time.sleep(0.3)
+            LEDS[v].off()
 
 
 except KeyboardInterrupt:
