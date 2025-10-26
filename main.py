@@ -16,11 +16,13 @@ logging.basicConfig(
     datefmt="%H:%M:%S",
 )
 
+logging.info("Aquabot booting")
+
 GPIO.setmode(GPIO.BCM)
 
 logging.info("Setting up switches... ")
-for s in pins.SWITCHES:
-    GPIO.setup(s, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+for k, v in pins.SWITCHES.items():
+    GPIO.setup(v, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 logging.info("Setting up switches - READY")
 
